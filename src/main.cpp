@@ -4,10 +4,22 @@
 
 using namespace std;
 
+
 int main(){
 	
-	cout << "hello world" << endl;
+	int a,b;
 	
+	
+	cout << "First Number    >> " << "";
+	cin >> a;
+	
+	cout << "Second Number   >> " << "";
+	cin >> b;
+	
+	
+	cout << "Sum		>> " << a + b << endl;
+	
+	cout << "Sub		>> " << a - b << endl;
 	
 	
 	
