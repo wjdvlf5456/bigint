@@ -4,48 +4,66 @@
 
 using namespace std;
 
+class BigInteger {
 
-int main(){
+private:
+	string number;
 
-	// 자료형 선언
-	string a,b;
+public:
+	BigInteger() :
+			number("0") {
+	}
 
-	int aInt;
-	int bInt;
+	BigInteger(const string &num) :
+			number(num) {
 
-	int sumInt;
-	int subInt;
+	}
 
-	string sum = "";
-	string sub = "";
+	// 문자열 형태로 큰 정수 반환
+	string toString() const {
+		return number;
+	}
 
+	// 큰 정수 덧셈
+	BigInteger add(const BigInteger &other) const {
+		string result;
 
-    // 원하는 숫자 입력
-	cout << "First Number    >> " << "";
+		int carry = 0;
+		int i = number.size() - 1;
+		int j = other.number.size() - 1;
+
+		while (i >= 0 || j >= 0 || carry > 0) {
+			int sum = carry;
+			if (i >= 0) {
+				sum += number[i] - '0';
+				i--;
+			}
+			if (j >= 0) {
+				sum += other.number[j] - '0';
+				j--;
+			}
+			carry = sum / 10;
+			result.insert(result.begin(), (sum % 10) + '0');
+		}
+
+		return BigInteger(result);
+	}
+};
+
+int main() {
+
+	string a;
+	string b;
+
 	cin >> a;
-	
-	cout << "Second Number   >> " << "";
 	cin >> b;
 
+	BigInteger num1(a); //"123456789012345678901234567890"
+	BigInteger num2(b); //"987654321098765432109876543210");
 
-    // string 타입을 int 타입으로 변환
-	aInt = stoi(a);
-	bInt = stoi(b);
+	BigInteger sum = num1.add(num2);
 
-	sumInt = aInt + bInt;
-    subInt = aInt - bInt;
-
-    // int 타입을 string 타입으로 변환
-	sum = to_string(sumInt);
-    sub = to_string(subInt);
-
-    cout << sum[2];
-
-	// 결과값 출력
-	cout << "Sum		>> " << sum << endl;
-	cout << "Sub		>> " << sub << endl;
-
+	cout << "Sum: " << sum.toString() << endl;
 
 	return 0;
-	
 }
